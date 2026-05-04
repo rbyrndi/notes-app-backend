@@ -25,3 +25,28 @@ export const createNote = (req, res, next) => {
     });
 };
 
+
+export const getNotes = (req, res) => {
+    return res.json({
+        status: 'success',
+        data: { notes }
+    });
+};
+
+export const getNoteById = (req, res) => {
+    const { id } = req.params;
+    const note = notes.filter((n) => n.id === id);
+
+    if (note.length === 0) {
+        return res.status(404).json({
+            status: 'fail',
+            message: 'Catatan tidak ditemukan',
+        });
+    }
+
+    return res.json({
+        status: 'success',
+        data: { note: note[0] }
+    });
+};
+
